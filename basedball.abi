@@ -47,7 +47,7 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "enum BaseballGame.Result",
+				"internalType": "enum BasedballGame.Result",
 				"name": "result",
 				"type": "uint8"
 			}
