@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 contract BasedballGame {
     address public owner;
-    uint256 public constant SWING_COST = 1000000000000000; // Cost in DEGEN to swing (1 finney)
+    uint256 public constant SWING_COST = 1000000000000000000; // Cost in DEGEN to swing (1 DEGEN)
 
     enum Result { Strike, Single, Double, Triple, Homerun }
 
@@ -78,13 +78,13 @@ contract BasedballGame {
 
         uint256 reward;
         if (result == Result.Single) {
-            reward = 1000000000000000; // Assume 1 point is equivalent to 0.001 DEGEN
+            reward = 1000000000000000000; // Assume 1 point is equivalent to 1 DEGEN
         } else if (result == Result.Double) {
-            reward = 2000000000000000; // Assume 2 points is equivalent to 0.002 DEGEN
+            reward = 2000000000000000000; // Assume 2 points is equivalent to 2 DEGEN
         } else if (result == Result.Triple) {
-            reward = 5000000000000000; // Assume 5 points is equivalent to 0.005 DEGEN
+            reward = 5000000000000000000; // Assume 5 points is equivalent to 5 DEGEN
         } else if (result == Result.Homerun) {
-            reward = 100000000000000000; // Assume 10 points is equivalent to 0.01 DEGEN
+            reward = 100000000000000000000; // Assume 10 points is equivalent to 10 DEGEN
         }
 
         // Update user score
