@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract BaseballGame {
+contract BasedballGame {
     address public owner;
     uint256 public constant SWING_COST = 1000000000000000; // Cost in DEGEN to swing (1 finney)
 
