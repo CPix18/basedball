@@ -7,7 +7,7 @@
 - add degen chain to your metamask (https://syndicate.io/blog/degen-chain)
 - fund your degen wallet using https://bridge.degen.tips/ (best way is to convert some coin on base and send it to degen as DEGEN)
 - on the left side under "file explorer" make file with this code and name it ball.abi
-- on the left side under "deploy and run transactions" input this address "0xC22c9f2Bd25bCb71A7D532c82d2946c09d18c28F" and click "at address" (dont use quotes in address box)
+- on the left side under "deploy and run transactions" input this address "0x9FD0D41b184F663D198b38f91c5d16279c758008" and click "at address" (dont use quotes in address box)
 - above this you'll see value, change it from "wei" to "ether" and input value "1" instead of "0"
 - above that you'll see "environment" and you'll change it to "injected provider" which will be your metamask
  
