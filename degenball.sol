@@ -84,7 +84,7 @@ contract BasedballGame {
         } else if (result == Result.Triple) {
             reward = 5000000000000000000; // Assume 5 points is equivalent to 5 DEGEN
         } else if (result == Result.Homerun) {
-            reward = 100000000000000000000; // Assume 10 points is equivalent to 10 DEGEN
+            reward = 10000000000000000000; // Assume 10 points is equivalent to 10 DEGEN
         }
 
         // Update user score
@@ -106,9 +106,10 @@ contract BasedballGame {
         }
     }
 
-    // Owner function to withdraw DEGEN from the contract
-    function withdraw(uint256 amount) external onlyOwner {
-        require(amount <= address(this).balance, "Insufficient balance");
-        payable(owner).transfer(amount);
+    // Owner function to withdraw all DEGEN from the contract
+    function withdraw() external onlyOwner {
+        uint256 contractBalance = address(this).balance;
+        require(contractBalance > 0, "Contract has no DEGEN balance");
+        payable(owner).transfer(contractBalance);
     }
 }
