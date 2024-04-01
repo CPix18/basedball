@@ -3,6 +3,7 @@
 ## directions to play using remix:
 - visit remix.ethereum.org
 - pick the option to "load from" with github and insert this link in the popup box - https://github.com/CPix18/basedball/blob/main/basedball.abi
+- save the basedball.abi file by using "command" + "s" in the "File Explorer" tab
 - add degen chain to your metamask (https://syndicate.io/blog/degen-chain)
 - fund your degen wallet using https://bridge.degen.tips/ (best way is to convert some coin on base and send it to degen as DEGEN)
 - on the left side under "file explorer" make file with this code and name it ball.abi
