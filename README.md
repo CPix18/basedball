@@ -2,7 +2,7 @@
 start with the abi code and go to remix to play
 
 ## directions to play using remix:
- :-visit remix.ethereum.org
+:-visit remix.ethereum.org
  :-add degen chain to your metamask (https://syndicate.io/blog/degen-chain)
  :-fund your degen wallet using https://bridge.degen.tips/ (best way is to convert some coin on base and send it to degen as DEGEN)
  :-on the left side under "file explorer" make file with this code and name it ball.abi
