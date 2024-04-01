@@ -14,4 +14,4 @@ under "deployed/unpinned contracts" click the dropdown arrow
 - keep playing until you get 3 strikes, you can keep track by inserting your address into the blue boxes under "swing" button which will track your rewards and your strikes
 - claimReward you can call after you've played a few times if you haven't gotten all strikes
 - if you receive an error about gas estimation, you probably didn't insert a value in the value box
-- if your transaction failed, increase gas cost x10 so if base fee and tip are 1.5 each, change to 15
+- if your transaction failed, then edit gas and use "aggressive" option
