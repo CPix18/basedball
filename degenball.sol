@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 contract BaseballGame {
     address public owner;
-    uint256 public constant SWING_COST = 1000000000000000; // Cost in DEGEN to swing
+    uint256 public constant SWING_COST = 1000000000000000; // Cost in DEGEN to swing (1 finney)
 
     enum Result { Strike, Single, Double, Triple, Homerun }
 
