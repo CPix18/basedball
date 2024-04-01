@@ -1,5 +1,5 @@
 # basedball
-start with the abi code and go to remix to play
+ - start with the abi code and go to remix to play - https://github.com/CPix18/basedball/blob/main/basedball.abi
 
 ## directions to play using remix:
 - visit remix.ethereum.org
