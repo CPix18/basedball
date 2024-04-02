@@ -8,15 +8,19 @@ contract BasedballGame {
     uint256 public constant THE_SHOW = 100000000000000000000; // Cost in DEGEN to swing (100 DEGEN)
     uint256 public constant SLUGGER = 1000000000000000000000; // Cost in DEGEN to swing (1000 DEGEN)
     uint256 public constant TOTAL_DEGEN = 10000000000000000000000; // Cost in DEGEN to swing (10000 DEGEN)
+    uint256 public constant BONUS_THRESHOLD_1 = 5;
+    uint256 public constant BONUS_THRESHOLD_2 = 10;
+    uint256 public constant BONUS_THRESHOLD_3 = 15;
 
     enum Result { Strike, Single, Double, Triple, Homerun }
 
     mapping(address => uint256) public userScores;
     mapping(address => uint256) public strikes;
+    mapping(address => uint256) public swingCounts;
 
-    event SwingResult(address indexed player, Result result);
-    event ClaimReward(address indexed player, uint256 reward);
-    event ContractSeeded(uint256 amount);
+    event SwingResult(address indexed player, Result result, uint256 bonusMultiplier);
+    event ClaimReward(address indexed player, address indexed recipient, uint256 reward);
+    event ContractSeeded(uint256 value);
 
     constructor() {
         owner = msg.sender;
@@ -33,10 +37,20 @@ contract BasedballGame {
 
     function swing() external payable {
         // Ensure user sent enough DEGEN
-        require(msg.value >= BABY_SWING, "Insufficient DEGEN sent");
+        require(msg.value == BABY_SWING, "Insufficient DEGEN sent");
 
         // Get random result
-        Result result = getRandomResult();
+        Result result = getRandomResult_BS();
+
+        // Check for bonus multiplier
+        uint256 bonusMultiplier = 1;
+        if (swingCounts[msg.sender] == BONUS_THRESHOLD_1) {
+            bonusMultiplier = 2; // Double reward on the tenth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_2) {
+            bonusMultiplier = 3; // Triple reward on the fiftieth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_3) {
+            bonusMultiplier = 4; // Quadruple reward on the hundredth swing
+        }
 
         // Increment strikes if it's a strike
         if (result == Result.Strike) {
@@ -44,23 +58,37 @@ contract BasedballGame {
         }
 
         // Emit swing result event
-        emit SwingResult(msg.sender, result);
+        emit SwingResult(msg.sender, result, bonusMultiplier);
 
         // Update user score
-        updateScore(msg.sender, result);
+        updateScore(msg.sender, result, bonusMultiplier);
 
         // Refund excess DEGEN
         if (msg.value > BABY_SWING) {
             payable(msg.sender).transfer(msg.value - BABY_SWING);
         }
+
+        // Increment swing count
+        swingCounts[msg.sender]++;
+
     }
 
     function swing10() external payable {
         // Ensure user sent enough DEGEN
-        require(msg.value >= TEE_BALL, "Insufficient DEGEN sent");
+        require(msg.value == TEE_BALL, "Insufficient DEGEN sent");
 
         // Get random result
-        Result result = getRandomResult();
+        Result result = getRandomResult_TB();
+
+       // Check for bonus multiplier
+        uint256 bonusMultiplier = 1;
+        if (swingCounts[msg.sender] == BONUS_THRESHOLD_1) {
+            bonusMultiplier = 2; // Double reward on the tenth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_2) {
+            bonusMultiplier = 3; // Triple reward on the fiftieth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_3) {
+            bonusMultiplier = 4; // Quadruple reward on the hundredth swing
+        }
 
         // Increment strikes if it's a strike
         if (result == Result.Strike) {
@@ -68,23 +96,36 @@ contract BasedballGame {
         }
 
         // Emit swing result event
-        emit SwingResult(msg.sender, result);
+        emit SwingResult(msg.sender, result, bonusMultiplier);
 
         // Update user score
-        updateScore(msg.sender, result);
+        updateScore(msg.sender, result, bonusMultiplier);
 
         // Refund excess DEGEN
         if (msg.value > TEE_BALL) {
             payable(msg.sender).transfer(msg.value - TEE_BALL);
         }
+
+        // Increment swing count
+        swingCounts[msg.sender]++;
+        
     }
 
     function swing100() external payable {
         // Ensure user sent enough DEGEN
-        require(msg.value >= THE_SHOW, "Insufficient DEGEN sent");
+        require(msg.value == THE_SHOW, "Insufficient DEGEN sent");
 
         // Get random result
-        Result result = getRandomResult();
+        Result result = getRandomResult_TS();
+
+        uint256 bonusMultiplier = 1;
+        if (swingCounts[msg.sender] == BONUS_THRESHOLD_1) {
+            bonusMultiplier = 2; // Double reward on the tenth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_2) {
+            bonusMultiplier = 3; // Triple reward on the fiftieth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_3) {
+            bonusMultiplier = 4; // Quadruple reward on the hundredth swing
+        }
 
         // Increment strikes if it's a strike
         if (result == Result.Strike) {
@@ -92,10 +133,10 @@ contract BasedballGame {
         }
 
         // Emit swing result event
-        emit SwingResult(msg.sender, result);
+        emit SwingResult(msg.sender, result, bonusMultiplier);
 
         // Update user score
-        updateScore(msg.sender, result);
+        updateScore(msg.sender, result, bonusMultiplier);
 
         // Refund excess DEGEN
         if (msg.value > THE_SHOW) {
@@ -105,10 +146,19 @@ contract BasedballGame {
 
     function swing1000() external payable {
         // Ensure user sent enough DEGEN
-        require(msg.value >= SLUGGER, "Insufficient DEGEN sent");
+        require(msg.value == SLUGGER, "Insufficient DEGEN sent");
 
         // Get random result
-        Result result = getRandomResult();
+        Result result = getRandomResult_SG();
+
+        uint256 bonusMultiplier = 1;
+        if (swingCounts[msg.sender] == BONUS_THRESHOLD_1) {
+            bonusMultiplier = 2; // Double reward on the tenth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_2) {
+            bonusMultiplier = 3; // Triple reward on the fiftieth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_3) {
+            bonusMultiplier = 4; // Quadruple reward on the hundredth swing
+        }
 
         // Increment strikes if it's a strike
         if (result == Result.Strike) {
@@ -116,10 +166,10 @@ contract BasedballGame {
         }
 
         // Emit swing result event
-        emit SwingResult(msg.sender, result);
+        emit SwingResult(msg.sender, result, bonusMultiplier);
 
         // Update user score
-        updateScore(msg.sender, result);
+        updateScore(msg.sender, result, bonusMultiplier);
 
         // Refund excess DEGEN
         if (msg.value > SLUGGER) {
@@ -129,10 +179,19 @@ contract BasedballGame {
 
     function swing10000() external payable {
         // Ensure user sent enough DEGEN
-        require(msg.value >= TOTAL_DEGEN, "Insufficient DEGEN sent");
+        require(msg.value == TOTAL_DEGEN, "Insufficient DEGEN sent");
 
         // Get random result
-        Result result = getRandomResult();
+        Result result = getRandomResult_TD();
+
+        uint256 bonusMultiplier = 1;
+        if (swingCounts[msg.sender] == BONUS_THRESHOLD_1) {
+            bonusMultiplier = 2; // Double reward on the tenth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_2) {
+            bonusMultiplier = 3; // Triple reward on the fiftieth swing
+        } else if (swingCounts[msg.sender] == BONUS_THRESHOLD_3) {
+            bonusMultiplier = 4; // Quadruple reward on the hundredth swing
+        }
 
         // Increment strikes if it's a strike
         if (result == Result.Strike) {
@@ -140,10 +199,10 @@ contract BasedballGame {
         }
 
         // Emit swing result event
-        emit SwingResult(msg.sender, result);
+        emit SwingResult(msg.sender, result, bonusMultiplier);
 
         // Update user score
-        updateScore(msg.sender, result);
+        updateScore(msg.sender, result, bonusMultiplier);
 
         // Refund excess DEGEN
         if (msg.value > TOTAL_DEGEN) {
@@ -151,25 +210,25 @@ contract BasedballGame {
         }
     }
 
-    function claimReward() external {
+    function claimReward(address recipient) external {
         uint256 reward = userScores[msg.sender];
         require(reward > 0, "No reward to claim");
 
         // Reset user score
         userScores[msg.sender] = 0;
 
-        // Transfer reward in DEGEN
-        payable(msg.sender).transfer(reward);
+        // Transfer reward in DEGEN to specified recipient
+        payable(recipient).transfer(reward);
 
         // Emit claim reward event
-        emit ClaimReward(msg.sender, reward);
+        emit ClaimReward(msg.sender, recipient, reward);
     }
 
-    function updateScore(address user, Result result) internal {
+    function updateScore(address user, Result result, uint256 bonusMultiplier) internal {
         if (result == Result.Strike) {
             // Check if user has reached 3 strikes
             if (strikes[user] == 3) {
-                // Do somDEGENing when the user reaches 3 strikes, like ending the game or resetting their strikes
+                // Do something when the user reaches 3 strikes, like ending the game or resetting their strikes
                 // For now, let's reset the strikes for simplicity
                 strikes[user] = 0;
             }
@@ -187,11 +246,29 @@ contract BasedballGame {
             reward = 10000000000000000000; // Assume 10 points is equivalent to 10 DEGEN
         }
 
+        // Apply bonus multiplier
+        reward *= bonusMultiplier;
+
         // Update user score
         userScores[user] += reward;
     }
 
-    function getRandomResult() internal view returns (Result) {
+    function getRandomResult_BS() internal view returns (Result) {
+        uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
+        if (randomNumber < 30) {
+            return Result.Strike;
+        } else if (randomNumber < 70) {
+            return Result.Single;
+        } else if (randomNumber < 90) {
+            return Result.Double;
+        } else if (randomNumber < 95) {
+            return Result.Triple;
+        } else {
+            return Result.Homerun;
+        }
+    }
+
+    function getRandomResult_TB() internal view returns (Result) {
         uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
         if (randomNumber < 40) {
             return Result.Strike;
@@ -206,10 +283,56 @@ contract BasedballGame {
         }
     }
 
-    // Owner function to withdraw all DEGEN from the contract
-    function withdraw() external onlyOwner {
+    function getRandomResult_TS() internal view returns (Result) {
+        uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
+        if (randomNumber < 40) {
+            return Result.Strike;
+        } else if (randomNumber < 80) {
+            return Result.Single;
+        } else if (randomNumber < 90) {
+            return Result.Double;
+        } else if (randomNumber < 96) {
+            return Result.Triple;
+        } else {
+            return Result.Homerun;
+        }
+    }
+
+    function getRandomResult_SG() internal view returns (Result) {
+        uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
+        if (randomNumber < 40) {
+            return Result.Strike;
+        } else if (randomNumber < 80) {
+            return Result.Single;
+        } else if (randomNumber < 90) {
+            return Result.Double;
+        } else if (randomNumber < 96) {
+            return Result.Triple;
+        } else {
+            return Result.Homerun;
+        }
+    }
+
+    function getRandomResult_TD() internal view returns (Result) {
+        uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
+        if (randomNumber < 40) {
+            return Result.Strike;
+        } else if (randomNumber < 80) {
+            return Result.Single;
+        } else if (randomNumber < 90) {
+            return Result.Double;
+        } else if (randomNumber < 96) {
+            return Result.Triple;
+        } else {
+            return Result.Homerun;
+        }
+    }
+
+    // Owner function to withdraw all DEGEN from the contract and specify recipient address
+    function withdraw(address payable recipient) external onlyOwner {
         uint256 contractBalance = address(this).balance;
         require(contractBalance > 0, "Contract has no DEGEN balance");
-        payable(owner).transfer(contractBalance);
+        require(recipient != address(0), "Invalid recipient address");
+        recipient.transfer(contractBalance);
     }
 }
