@@ -222,6 +222,7 @@ contract BasedballGame {
 
         // Emit claim reward event
         emit ClaimReward(msg.sender, recipient, reward);
+
     }
 
     function updateScore(address user, Result result, uint256 bonusMultiplier) internal {
