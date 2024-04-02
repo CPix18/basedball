@@ -14,5 +14,8 @@
 - under "deployed/unpinned contracts" click the dropdown arrow click the "swing" button, you can only call this if the value box above is set to 1 "ether" - this will use 1 degen
 - keep playing until you get 3 strikes, you can keep track by inserting your address into the blue boxes under "swing" button which will track your rewards and your strikes
 - claimReward you can call after you've played a few times if you haven't gotten all strikes
+
+  #tips
+- you might need to change compiler to 8.0 instead of whatever it is set on
 - if you receive an error about gas estimation, you probably didn't insert a value in the value box
 - if your transaction failed, then edit gas and use "aggressive" option
