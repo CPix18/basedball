@@ -255,13 +255,13 @@ contract BasedballGame {
 
     function getRandomResult_BS() internal view returns (Result) {
         uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
-        if (randomNumber < 30) {
+        if (randomNumber < 20) {
             return Result.Strike;
-        } else if (randomNumber < 70) {
+        } else if (randomNumber < 60) {
             return Result.Single;
-        } else if (randomNumber < 90) {
+        } else if (randomNumber < 80) {
             return Result.Double;
-        } else if (randomNumber < 95) {
+        } else if (randomNumber < 90) {
             return Result.Triple;
         } else {
             return Result.Homerun;
@@ -270,13 +270,13 @@ contract BasedballGame {
 
     function getRandomResult_TB() internal view returns (Result) {
         uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
-        if (randomNumber < 40) {
+        if (randomNumber < 30) {
             return Result.Strike;
-        } else if (randomNumber < 80) {
+        } else if (randomNumber < 70) {
             return Result.Single;
-        } else if (randomNumber < 90) {
+        } else if (randomNumber < 85) {
             return Result.Double;
-        } else if (randomNumber < 96) {
+        } else if (randomNumber < 92) {
             return Result.Triple;
         } else {
             return Result.Homerun;
@@ -300,13 +300,13 @@ contract BasedballGame {
 
     function getRandomResult_SG() internal view returns (Result) {
         uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
-        if (randomNumber < 40) {
+        if (randomNumber < 50) {
             return Result.Strike;
         } else if (randomNumber < 80) {
             return Result.Single;
-        } else if (randomNumber < 90) {
+        } else if (randomNumber < 95) {
             return Result.Double;
-        } else if (randomNumber < 96) {
+        } else if (randomNumber < 98) {
             return Result.Triple;
         } else {
             return Result.Homerun;
@@ -315,13 +315,13 @@ contract BasedballGame {
 
     function getRandomResult_TD() internal view returns (Result) {
         uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, block.timestamp, msg.sender))) % 100;
-        if (randomNumber < 40) {
+        if (randomNumber < 60) {
             return Result.Strike;
-        } else if (randomNumber < 80) {
-            return Result.Single;
         } else if (randomNumber < 90) {
+            return Result.Single;
+        } else if (randomNumber < 95) {
             return Result.Double;
-        } else if (randomNumber < 96) {
+        } else if (randomNumber < 99) {
             return Result.Triple;
         } else {
             return Result.Homerun;
